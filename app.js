@@ -17,8 +17,8 @@ function getProfiles(){
             <h5 class="card-title">${user.name}</h5>
             <p class="card-text">${user.message}</p>
             <p class="card-text">${user.id}</p>
-            <button class="btn btn-primary id="deletePost" onclick='deletePost(${user.id})' ">Delete</button>
-            <button class="btn btn-primary id="deletePost" onclick='updatePost(${user.id})' ">update</button>
+            <button class="btn btn-primary" id="deletePost" onclick='deletePost(${user.id})' ">Delete</button>
+            <button class="btn btn-primary" id="updatePost" onclick='updatePost()' ">updatepost</button>
           </div>
         </div>
 
@@ -27,14 +27,15 @@ function getProfiles(){
     );
       document.getElementById('output').innerHTML = output;
   }
+  
+
 }
 
 xhr.send();
 }
 
 function deletePost(sus_id){
-    const obj = document.getElementById('deletePost');
-    obj.parentElement.parentElement.remove();
+   
 var url = "http://192.168.100.9:5000/suspect";
 var xhr = new XMLHttpRequest();
 xhr.open("DELETE", url+`/${sus_id}`, true);
@@ -42,14 +43,19 @@ xhr.onload = function () {
 	var users = JSON.parse(JSON.stringify(xhr.responseText));
 	if (xhr.readyState == 4 && xhr.status == "200") {
         console.log('users');
-        // const obj = document.getElementById('deletePost');
-        // obj.parentElement.parentElement.remove();
+        const obj = document.querySelector('#deletePost');
+        obj.parentElement.parentElement.remove();
 	} else {
 		console.log(users);
     }
     
 }
 xhr.send(null);
-
+s = document.querySelector('#deletePost');
+s.parentElement.parentElement.remove();
 }
-document.querySelector('body').addEventListener('onload',getProfiles());
+function updatePost(){
+    s = document.querySelector('#updatePost');
+    s.parentElement.parentElement.remove();
+}
+document.querySelector('body').addEventListener('DOMContentLoaded',getProfiles());
